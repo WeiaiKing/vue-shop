@@ -12,6 +12,17 @@ module.exports = {
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'indent': [2, 4], // 两个空格的缩进
+    'quotes': [2, 'single'], // js必须使用单引号
+    'linebreak-style': [2, 'unix'], // 换行风格 unix/windows
+    'semi': [2, 'always'], // 语句强制分号结尾
+    "no-tabs":"off",
+    // 函数名后必须有空格的，去掉这个 'space-before-function-paren':0 禁用这个规则
+    'space-before-function-paren': ['error', {
+      anonymous: 'always',
+      named: 'never',
+      asyncArrow: 'always'
+    }],
   }
 }
