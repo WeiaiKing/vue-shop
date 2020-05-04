@@ -106,6 +106,28 @@
           <el-button type="primary" @click="editUserDialogDefine">确 定</el-button>
         </span>
       </el-dialog>
+      <!-- 分配角色对话框 -->
+      <el-dialog title="修改用户" :visible.sync="editRightDialog" width="50%" @close="rightDislogClose">
+        <div>
+          <p>当前用户:{{userInfo.username}}</p>
+          <p>当前角色:{{userInfo.role_name}}</p>
+          <p>
+            分配角色:
+            <el-select v-model="selectRoleId" placeholder="请选择">
+              <el-option
+                v-for="item in roleList"
+                :key="item.id"
+                :label="item.roleName"
+                :value="item.id"
+              ></el-option>
+            </el-select>
+          </p>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="editRightDialog = false">取 消</el-button>
+          <el-button type="primary" @click="editRightDialogDefine">确 定</el-button>
+        </span>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -130,6 +152,10 @@ export default {
             callback(new Error('输入合法的邮箱'));
         };
         return {
+            // 分配权限
+            editRightDialog: false,
+            // 分配权限表单
+            userInfo: {},
             // dislog 编辑
             editUserDialog: false,
             // editUserForm-data
@@ -205,7 +231,7 @@ export default {
                     email: '1192620781@qq.com',
                     create_time: '2020',
                     mg_state: false,
-                    role_name: 'aking'
+                    role_name: 'admin'
                 },
                 {
                     id: 2,
@@ -215,9 +241,159 @@ export default {
                     email: '8888@163',
                     create_time: '2019',
                     mg_state: true,
-                    role_name: 'aking'
+                    role_name: '超级管理员'
                 }
             ],
+            // 角色列表
+            roleList: [
+                {
+                    id: 1,
+                    roleName: '主管',
+                    roleDesc: '技术负责人',
+                    children: [
+                        {
+                            id: 101,
+                            authName: '商品管理',
+                            path: null,
+                            children: [
+                                {
+                                    id: 104,
+                                    authName: '商品列表',
+                                    path: null,
+                                    children: [
+                                        {
+                                            id: 105,
+                                            authName: '添加商品',
+                                            path: null
+                                        },
+                                        {
+                                            id: 109,
+                                            authName: '订单管理',
+                                            path: null
+                                        },
+                                        {
+                                            id: 105,
+                                            authName: '添加商品',
+                                            path: null
+                                        },
+                                        {
+                                            id: 109,
+                                            authName: '订单管理,添加商品',
+                                            path: null
+                                        },
+                                        {
+                                            id: 105,
+                                            authName: '添加商品添加商品',
+                                            path: null
+                                        },
+                                        {
+                                            id: 109,
+                                            authName: '订单管理',
+                                            path: null
+                                        },
+                                        {
+                                            id: 105,
+                                            authName: '添加商品添加商品',
+                                            path: null
+                                        },
+                                        {
+                                            id: 109,
+                                            authName: '订单管理',
+                                            path: null
+                                        }
+                                    ]
+                                },
+                                {
+                                    id: 102,
+                                    authName: '订单管理',
+                                    path: null,
+                                    children: [
+                                        {
+                                            id: 106,
+                                            authName: '添加订单',
+                                            path: null
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+
+                        {
+                            id: 50,
+                            authName: '订单管理',
+                            path: null,
+                            children: [
+                                {
+                                    id: 51,
+                                    authName: '商品列表',
+                                    path: null,
+                                    children: [
+                                        {
+                                            id: 52,
+                                            authName: '添加商品',
+                                            path: null
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    roleName: '实习生',
+                    roleDesc: '听话',
+                    children: [
+                        {
+                            id: 21,
+                            authName: '订单管理',
+                            path: null,
+                            children: [
+                                {
+                                    id: 22,
+                                    authName: '商品列表',
+                                    path: null,
+                                    children: [
+                                        {
+                                            id: 23,
+                                            authName: '添加商品',
+                                            path: null
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    roleName: '实习生2',
+                    roleDesc: '很强',
+                    children: [
+                        {
+                            id: 31,
+                            authName: '权限管理',
+                            path: null,
+                            children: [
+                                {
+                                    id: 32,
+                                    authName: '权限管理',
+                                    path: null,
+                                    children: [
+                                        {
+                                            id: 33,
+                                            authName: '添加商品',
+                                            path: null
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            // select 的值
+            selectRoleId: '',
             // 获取用户列表的参数对象，写到这个方便以后调用修改
             queryInfo: {
                 // 查询字段
@@ -342,6 +518,20 @@ export default {
             //     }
             // ).catch(err => err);
             // console.log(result);
+        },
+        // 分配权限
+        userSet(e) {
+            this.userInfo = e;
+            this.editRightDialog = true;
+        },
+        editRightDialogDefine() {
+            this.$message.success('更新角色成功');
+            this.editRightDialog = false;
+        },
+        // 关闭事件
+        rightDislogClose() {
+            this.userInfo = '';
+            this.selectRoleId = '';
         }
     }
 };

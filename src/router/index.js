@@ -3,8 +3,13 @@ import VueRouter from 'vue-router';
 import Login from '../components/Login.vue';
 import Home from '../components/Home.vue';
 import Welcome from '../components/Welcome.vue';
-import Userlist from '../components/user/Userlist.vue'
-import Rolelist from '../components/Jurisdiction/Rolelist.vue'
+import Userlist from '../components/user/Userlist.vue';
+import Rolelist from '../components/Jurisdiction/Rolelist.vue';
+import Rightlist from '../components/Jurisdiction/Rightlist.vue';
+import ClassifyParameter from '../components/commodityManage/ClassifyParameter.vue';
+import CommodityClassify from '../components/commodityManage/CommodityClassify.vue';
+import CommodityList from '../components/commodityManage/CommodityList.vue';
+import AddGoods from '../components/commodityManage/addGoods.vue';
 
 Vue.use(VueRouter);
 
@@ -34,6 +39,26 @@ const routes = [
             {
                 path: '/rolelist',
                 component: Rolelist
+            },
+            {
+                path: '/rightlist',
+                component: Rightlist
+            },
+            {
+                path: '/classify',
+                component: ClassifyParameter
+            },
+            {
+                path: '/commodityClass',
+                component: CommodityClassify
+            },
+            {
+                path: '/commodityList',
+                component: CommodityList
+            },
+            {
+                path: '/commodityList/addGoods',
+                component: AddGoods
             }
         ]
     }
