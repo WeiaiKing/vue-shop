@@ -108,11 +108,22 @@ export default {
                 {
                     id: 4,
                     firstname: '订单管理',
-                    child: []
+                    child: [
+                        {
+                            id: '/order',
+                            secondName: '订单列表'
+                        }
+                    ]
                 },
                 {
                     id: 5,
-                    firstname: '数据统计'
+                    firstname: '数据统计',
+                    child: [
+                        {
+                            id: '/echart',
+                            secondName: '数据报表'
+                        }
+                    ]
                 }
             ],
             // 当于直接加到menulist里面了。以为键是以menulist的id作为的，循环直接调用
@@ -147,7 +158,7 @@ export default {
         saveNavState(e) {
             window.sessionStorage.setItem('activePath', e);
             console.log(e);
-            this.isactivePath = e
+            this.isactivePath = e;
         }
     }
 };

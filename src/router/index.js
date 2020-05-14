@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+// const Login = ()=> import(/* webpackChunkName: "login_home_welcome" */'./components/Login.vue')
 import Login from '../components/Login.vue';
 import Home from '../components/Home.vue';
 import Welcome from '../components/Welcome.vue';
@@ -10,6 +11,8 @@ import ClassifyParameter from '../components/commodityManage/ClassifyParameter.v
 import CommodityClassify from '../components/commodityManage/CommodityClassify.vue';
 import CommodityList from '../components/commodityManage/CommodityList.vue';
 import AddGoods from '../components/commodityManage/addGoods.vue';
+import Order from '../components/order/Order.vue';
+import Echart from '../components/echarts/Echarts.vue';
 
 Vue.use(VueRouter);
 
@@ -59,6 +62,14 @@ const routes = [
             {
                 path: '/commodityList/addGoods',
                 component: AddGoods
+            },
+            {
+                path: '/order',
+                component: Order
+            },
+            {
+                path: '/echart',
+                component: Echart
             }
         ]
     }
